@@ -10,7 +10,7 @@ module Hyrax
       def create(env)
         env.attributes['title'].map!(&:titleize)
 
-        super
+        super && RemoteIdentifierJob.perform_later(env.curation_concern)
       end
     end
   end
